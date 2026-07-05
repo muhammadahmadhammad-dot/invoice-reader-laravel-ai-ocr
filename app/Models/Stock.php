@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Stock extends Model
+{
+    protected $fillable = [
+        'product_name',
+        'current_stock',
+        'current_purchase_price',
+    ];
+}
