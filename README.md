@@ -115,12 +115,11 @@ Built as a weekend learning project to explore:
 
 ---
 
-## 📈 Future Improvements (Optional Learning Scope)
+## 📈 Future Improvements
 
 - Queue-based processing (background jobs)
 - Retry mechanism for failed OCR/AI requests
 - Invoice validation layer
-- Dashboard analytics
 - Enhanced AI accuracy tuning
 
 ---
