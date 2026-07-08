@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Service\GeminiInvoiceService;
+use App\Service\InvoiceParserService;
 use App\Service\InvoiceService;
+use App\Service\OCRService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceController extends Controller
 {
@@ -36,8 +40,8 @@ class InvoiceController extends Controller
     }
     public function show(string $id)
     {
-        $invoice = Invoice::findOrFail($id);
-        return view('invoices.show',compact('invoice'));
+        $invoice = Invoice::with('items')->findOrFail($id);
+        return view('invoices.show', compact('invoice'));
     }
     public function store(Request $request, InvoiceService $service)
     {
@@ -54,5 +58,44 @@ class InvoiceController extends Controller
 
         return redirect()->route('invoices.index')
             ->with('success', 'Invoice created successfully');
+    }
+    public function upload(Request $request, OCRService $ocr,  InvoiceParserService $parser, GeminiInvoiceService $ai, InvoiceService $service)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240'
+        ]);
+        try {
+            // 1. store file
+            $path = $request->file('file')->store('invoices', 'public');
+
+            // 2. OCR text
+            $text = $ocr->extractText($path);
+
+            // 3. parse - ai
+            $clean = $parser->cleanOcrText($text);
+
+            $data = $ai->parse($clean);
+            $data['remarks'] = 'OCR Generated Invoice';
+
+            if (!isset($data['items']) || !is_array($data['items'])) {
+                return response()->json([
+                    'error' => 'AI parsing failed',
+                    'raw_text' => $text
+                ], 422);
+            }
+            // 5. create invoice
+            $invoice = $service->create($data);
+
+            return response()->json([
+                'message' => 'Invoice created from OCR.Space',
+                'invoice' => $invoice,
+                'raw_text' => $text
+            ]);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'error' => $ex->getMessage(),
+                'message' => 'Invoice creation failed',
+            ], 500);
+        }
     }
 }

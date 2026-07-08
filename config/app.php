@@ -99,6 +99,8 @@ return [
 
     'key' => env('APP_KEY'),
 
+    'my_whatsapp_number' => env('MY_FROM_WHATSAPP_NUMBER'),
+
     'previous_keys' => [
         ...array_filter(
             explode(',', (string) env('APP_PREVIOUS_KEYS', ''))

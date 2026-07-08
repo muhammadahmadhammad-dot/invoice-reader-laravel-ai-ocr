@@ -1,0 +1,4 @@
+composer require cdsmths/laravel-ocr-space
+OCR_SPACE_API_KEY=your_api_key_here
+GEMINI_API_KEY=your_key_here
+

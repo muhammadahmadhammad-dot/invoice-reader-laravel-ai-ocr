@@ -4,7 +4,9 @@ namespace App\Service;
 
 use App\Models\Invoice;
 use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class InvoiceService
 {
@@ -12,8 +14,9 @@ class InvoiceService
     {
         return DB::transaction(function () use ($data) {
 
+            $userId = Session::get('webhook_user_id', null);
             $invoice = Invoice::create([
-                'user_id' => auth()->id(),
+                'user_id' => $userId ?? auth()->id(),
                 'number' => $data['number'],
                 'vendor_name' => $data['vendor_name'],
                 'date' => $data['date'],
