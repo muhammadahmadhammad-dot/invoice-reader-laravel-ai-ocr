@@ -1,58 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Invoice Automate Reader
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+An AI-powered invoice automation workflow built with Laravel that demonstrates how real-world invoice processing can be automated using **OCR, AI, and WhatsApp integration**.
 
-## About Laravel
+This project is a **learning-focused implementation**, built to explore how modern systems handle unstructured data, external APIs, and event-driven automation workflows.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Overview
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Invoice Automate Reader** processes invoices from multiple sources and converts them into structured, usable data automatically.
 
-## Learning Laravel
+It supports three input methods:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Manual invoice creation via web form  
+- PDF/Image upload with OCR + AI processing  
+- WhatsApp-based invoice forwarding via Twilio webhook  
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Each input is processed through a unified pipeline that extracts, structures, and stores invoice data in the system.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## 🔄 System Workflow
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 1. Manual Entry
+User → Laravel Form → Database
 
-```bash
-composer require laravel/boost --dev
+---
 
-php artisan boost:install
-```
+### 2. File Upload (PDF / Image)
+User → Upload File → OCR.Space → Gemini AI → Structured Data → Laravel → Invoice + Stock Update
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+### 3. WhatsApp Automation (Twilio)
+User → WhatsApp → Twilio Webhook → Laravel → OCR Processing → Gemini AI → Database → WhatsApp Confirmation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🧠 Key Learning Objectives
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+This project was built to gain hands-on experience with:
 
-## Security Vulnerabilities
+- OCR-based text extraction from documents
+- AI-powered structured data generation (Gemini API)
+- WhatsApp automation using Twilio webhooks
+- Handling unstructured and noisy data
+- Building service-oriented architecture in Laravel
+- Managing external API failures and inconsistent responses
+- Designing real-world automation workflows
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## ⚙️ Tech Stack
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Laravel (Backend Framework)
+- MySQL (Database)
+- Bootstrap (UI)
+- OCR.Space API (Text Extraction)
+- Google Gemini AI (Data Structuring)
+- Twilio WhatsApp API (Messaging & Webhooks)
+
+---
+
+## 🏗️ Architecture
+
+The system follows a modular service-based architecture:
+
+- OCR Service → Extracts raw text from documents
+- AI Service → Converts unstructured text into structured JSON
+- Invoice Service → Handles business logic and database operations
+- WhatsApp Webhook → Entry point for external automation requests
+
+This separation ensures better maintainability and scalability.
+
+---
+
+## 📦 Features
+
+- Multi-source invoice creation (Manual, Upload, WhatsApp)
+- AI-based invoice parsing and structuring
+- Stock update automation
+- WhatsApp confirmation messaging
+- Clean service-layer architecture
+- Error handling for external API failures
+
+---
+
+## ⚠️ Project Status
+
+This is a **learning and experimentation project**, not a production-ready SaaS application.
+
+The primary goal was to understand:
+- How OCR + AI can be combined for automation
+- How webhook-based systems work in real-world applications
+- How to structure Laravel applications beyond basic CRUD
+
+---
+
+## 📌 Key Insight
+
+Real-world automation systems are not just about features — they are about **data flow reliability across multiple external systems**:
+Input → OCR → AI → Processing → Database → Response
+
+---
+
+## 👨‍💻 Purpose
+
+Built as a weekend learning project to explore:
+
+- AI integration in backend systems
+- Document processing pipelines
+- WhatsApp automation using Twilio
+- Real-world Laravel architecture design
+
+---
+
+## 📈 Future Improvements (Optional Learning Scope)
+
+- Queue-based processing (background jobs)
+- Retry mechanism for failed OCR/AI requests
+- Invoice validation layer
+- Dashboard analytics
+- Enhanced AI accuracy tuning
+
+---
+
+## ⭐ Final Note
+
+This project helped bridge the gap between tutorial-based learning and real-world system design by combining multiple external services into a single automated workflow.
